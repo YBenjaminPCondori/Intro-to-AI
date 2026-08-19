@@ -1,0 +1,537 @@
+{
+  "created_at": "2026-08-19T23:30:42",
+  "project_root": "C:\\Users\\PC\\Documents\\GitHub\\Intro-to-AI",
+  "output_root": "C:\\Users\\PC\\Documents\\GitHub\\Intro-to-AI\\outputs",
+  "run_mode": "final",
+  "expected_dataset_id": null,
+  "ranking_rule": "macro_f1 desc, then balanced_accuracy desc; fallback columns are flagged in ranking_basis",
+  "comparison_table_path": "C:\\Users\\PC\\Documents\\GitHub\\Intro-to-AI\\outputs\\comparison\\tables\\model_comparison_final.csv",
+  "comparison_figure_path": "C:\\Users\\PC\\Documents\\GitHub\\Intro-to-AI\\outputs\\comparison\\figures\\model_comparison_final.png",
+  "loaded_results": [
+    {
+      "rank": 1,
+      "model_name": "CNN",
+      "configured_model_name": "CNN",
+      "category": "core",
+      "required": true,
+      "output_folder": "cnn",
+      "metric_file": "outputs\\cnn\\metrics\\cnn_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "cnn_32_64",
+      "accuracy": 0.9871266735324408,
+      "balanced_accuracy": 0.9856172379533035,
+      "macro_precision": 0.9842838335085835,
+      "macro_recall": 0.9856172379533035,
+      "macro_f1": 0.9849468706698998,
+      "weighted_f1": 0.9871355225291762,
+      "precision": 0.9917849141150112,
+      "recall": 0.9895678092399404,
+      "f1": 0.990675121223424,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.9871266735324408,
+      "confusion_matrix_file": "outputs\\cnn\\metrics\\cnn_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.9849468706698998,
+      "ranking_balanced_accuracy": 0.9856172379533035,
+      "ranking_basis": "macro_f1"
+    },
+    {
+      "rank": 2,
+      "model_name": "MLP",
+      "configured_model_name": "MLP",
+      "category": "core",
+      "required": true,
+      "output_folder": "mlp",
+      "metric_file": "outputs\\mlp\\metrics\\mlp_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "mlp_128_64",
+      "accuracy": 0.9711637487126673,
+      "balanced_accuracy": 0.9722242921013413,
+      "macro_precision": 0.9615533080202375,
+      "macro_recall": 0.9722242921013413,
+      "macro_f1": 0.9666272645477901,
+      "weighted_f1": 0.9713284813778724,
+      "precision": 0.9886018237082067,
+      "recall": 0.9694485842026825,
+      "f1": 0.9789315274642588,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.9711637487126673,
+      "confusion_matrix_file": "outputs\\mlp\\metrics\\mlp_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.9666272645477901,
+      "ranking_balanced_accuracy": 0.9722242921013413,
+      "ranking_basis": "macro_f1"
+    },
+    {
+      "rank": 3,
+      "model_name": "Logistic Regression",
+      "configured_model_name": "Logistic Regression",
+      "category": "optional_baseline",
+      "required": false,
+      "output_folder": "logistic_regression",
+      "metric_file": "outputs\\logistic_regression\\metrics\\logistic_regression_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "logistic_c_10",
+      "accuracy": 0.946961894953656,
+      "balanced_accuracy": 0.9556346249379036,
+      "macro_precision": 0.9283919407289776,
+      "macro_recall": 0.9556346249379036,
+      "macro_f1": 0.9399165970540732,
+      "weighted_f1": 0.9477776662893973,
+      "precision": 0.9897233201581027,
+      "recall": 0.9329359165424739,
+      "f1": 0.9604909858074415,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.946961894953656,
+      "confusion_matrix_file": "outputs\\logistic_regression\\metrics\\logistic_regression_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.9399165970540732,
+      "ranking_balanced_accuracy": 0.9556346249379036,
+      "ranking_basis": "macro_f1"
+    },
+    {
+      "rank": 4,
+      "model_name": "XGBoost",
+      "configured_model_name": "XGBoost",
+      "category": "optional_baseline",
+      "required": false,
+      "output_folder": "xgboost",
+      "metric_file": "outputs\\xgboost\\metrics\\xgboost_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "xgb_depth_4_lr_005",
+      "accuracy": 0.9340885684860968,
+      "balanced_accuracy": 0.9255861897665176,
+      "macro_precision": 0.9210059462381444,
+      "macro_recall": 0.9255861897665176,
+      "macro_f1": 0.923242623663564,
+      "weighted_f1": 0.934266857990029,
+      "precision": 0.956390977443609,
+      "recall": 0.9478390461997019,
+      "f1": 0.9520958083832335,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.9340885684860968,
+      "confusion_matrix_file": "outputs\\xgboost\\metrics\\xgboost_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.923242623663564,
+      "ranking_balanced_accuracy": 0.9255861897665176,
+      "ranking_basis": "macro_f1"
+    },
+    {
+      "rank": 5,
+      "model_name": "Optional LSTM",
+      "configured_model_name": "LSTM Optional",
+      "category": "optional_sequence_model",
+      "required": false,
+      "output_folder": "lstm_optional",
+      "metric_file": "outputs\\lstm_optional\\metrics\\lstm_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "lstm_64_dropout_030",
+      "accuracy": 0.927394438722966,
+      "balanced_accuracy": 0.936408345752608,
+      "macro_precision": 0.9059767294354965,
+      "macro_recall": 0.936408345752608,
+      "macro_f1": 0.9182660664570649,
+      "weighted_f1": 0.928702510557679,
+      "precision": 0.9807846277021617,
+      "recall": 0.912816691505216,
+      "f1": 0.9455808568120417,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.927394438722966,
+      "confusion_matrix_file": "outputs\\lstm_optional\\metrics\\lstm_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.9182660664570649,
+      "ranking_balanced_accuracy": 0.936408345752608,
+      "ranking_basis": "macro_f1"
+    },
+    {
+      "rank": 6,
+      "model_name": "Random Forest",
+      "configured_model_name": "Random Forest",
+      "category": "optional_baseline",
+      "required": false,
+      "output_folder": "random_forest",
+      "metric_file": "outputs\\random_forest\\metrics\\random_forest_test_metrics.json",
+      "metric_format": "json",
+      "run_mode": "final",
+      "run_mode_validation": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set",
+      "dataset_id": null,
+      "best_variant": "rf_200_trees",
+      "accuracy": 0.9263645726055613,
+      "balanced_accuracy": 0.9029495777446597,
+      "macro_precision": 0.9224030974447903,
+      "macro_recall": 0.9029495777446597,
+      "macro_f1": 0.9118069716400596,
+      "weighted_f1": 0.9254973897850561,
+      "precision": 0.931605471562275,
+      "recall": 0.9642324888226528,
+      "f1": 0.947638227755401,
+      "runtime_seconds": null,
+      "parameter_count": null,
+      "training_mode": "final",
+      "dataset_split": "held-out test split inferred from filename",
+      "seed": null,
+      "selection_reason": "matched expected JSON metric pattern",
+      "accuracy_from_confusion_matrix": 0.9263645726055613,
+      "confusion_matrix_file": "outputs\\random_forest\\metrics\\random_forest_confusion_matrix.csv",
+      "macro_metric_source": "computed from saved confusion matrix",
+      "ranking_macro_f1": 0.9118069716400596,
+      "ranking_balanced_accuracy": 0.9029495777446597,
+      "ranking_basis": "macro_f1"
+    }
+  ],
+  "found_metric_files": [
+    {
+      "model_name": "MLP",
+      "metric_file": "outputs\\mlp\\metrics\\mlp_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    },
+    {
+      "model_name": "CNN",
+      "metric_file": "outputs\\cnn\\metrics\\cnn_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    },
+    {
+      "model_name": "Logistic Regression",
+      "metric_file": "outputs\\logistic_regression\\metrics\\logistic_regression_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    },
+    {
+      "model_name": "Random Forest",
+      "metric_file": "outputs\\random_forest\\metrics\\random_forest_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    },
+    {
+      "model_name": "XGBoost",
+      "metric_file": "outputs\\xgboost\\metrics\\xgboost_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    },
+    {
+      "model_name": "LSTM Optional",
+      "metric_file": "outputs\\lstm_optional\\metrics\\lstm_test_metrics.json",
+      "metric_format": "json",
+      "selection_reason": "matched expected JSON metric pattern",
+      "validation_notes": "run mode inferred from filename; dataset metadata not present; EXPECTED_DATASET_ID is not set"
+    }
+  ],
+  "missing_results": [
+    {
+      "model_name": "SVM",
+      "required": true,
+      "reason": "none of the configured output folders exist",
+      "expected_folders": "svm, support_vector_machine",
+      "candidate_files_found": 0
+    }
+  ],
+  "skipped_files": [
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\figures\\pca_explained_variance.png",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\figures\\pca_validation_scatter.png",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\metrics\\pca_summary.json",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\models\\pca_model.joblib",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\models\\pca_standard_scaler.joblib",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\pca\\tables\\pca_explained_variance.csv",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\figures\\class_distribution.png",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\figures\\duration_sample.png",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\tables\\audio_manifest.csv",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\tables\\audio_manifest_with_split.csv",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\tables\\data_quality_checks.csv",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": null,
+      "file": "outputs\\scan\\tables\\mfcc_preview_summary.csv",
+      "reason": "output folder is not configured as a comparable trained model"
+    },
+    {
+      "model_name": "MLP",
+      "file": "outputs\\mlp\\metrics\\mlp_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "MLP",
+      "file": "outputs\\mlp\\metrics\\mlp_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "MLP",
+      "file": "outputs\\mlp\\tables\\mlp_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    },
+    {
+      "model_name": "CNN",
+      "file": "outputs\\cnn\\metrics\\cnn_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "CNN",
+      "file": "outputs\\cnn\\metrics\\cnn_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "CNN",
+      "file": "outputs\\cnn\\tables\\cnn_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    },
+    {
+      "model_name": "Logistic Regression",
+      "file": "outputs\\logistic_regression\\metrics\\logistic_regression_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "Logistic Regression",
+      "file": "outputs\\logistic_regression\\metrics\\logistic_regression_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "Logistic Regression",
+      "file": "outputs\\logistic_regression\\tables\\logistic_regression_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    },
+    {
+      "model_name": "Random Forest",
+      "file": "outputs\\random_forest\\metrics\\random_forest_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "Random Forest",
+      "file": "outputs\\random_forest\\metrics\\random_forest_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "Random Forest",
+      "file": "outputs\\random_forest\\tables\\random_forest_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    },
+    {
+      "model_name": "XGBoost",
+      "file": "outputs\\xgboost\\metrics\\xgboost_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "XGBoost",
+      "file": "outputs\\xgboost\\metrics\\xgboost_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "XGBoost",
+      "file": "outputs\\xgboost\\tables\\xgboost_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    },
+    {
+      "model_name": "LSTM Optional",
+      "file": "outputs\\lstm_optional\\metrics\\lstm_confusion_matrix.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "LSTM Optional",
+      "file": "outputs\\lstm_optional\\metrics\\lstm_language_subgroup_metrics.csv",
+      "reason": "does not match expected metric filename pattern for this model/run mode"
+    },
+    {
+      "model_name": "LSTM Optional",
+      "file": "outputs\\lstm_optional\\tables\\lstm_validation_experiments.csv",
+      "reason": "file appears to be 'validation', not RUN_MODE='final'"
+    }
+  ],
+  "per_class_metrics": [
+    {
+      "model_name": "MLP",
+      "metric_file": "outputs\\mlp\\metrics\\mlp_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.9345047923322684,
+      "recall": 0.975,
+      "f1": 0.9543230016313213
+    },
+    {
+      "model_name": "MLP",
+      "metric_file": "outputs\\mlp\\metrics\\mlp_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.9886018237082067,
+      "recall": 0.9694485842026825,
+      "f1": 0.9789315274642589
+    },
+    {
+      "model_name": "CNN",
+      "metric_file": "outputs\\cnn\\metrics\\cnn_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.9767827529021559,
+      "recall": 0.9816666666666667,
+      "f1": 0.9792186201163757
+    },
+    {
+      "model_name": "CNN",
+      "metric_file": "outputs\\cnn\\metrics\\cnn_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.9917849141150112,
+      "recall": 0.9895678092399404,
+      "f1": 0.990675121223424
+    },
+    {
+      "model_name": "Logistic Regression",
+      "metric_file": "outputs\\logistic_regression\\metrics\\logistic_regression_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.8670605612998523,
+      "recall": 0.9783333333333334,
+      "f1": 0.9193422083007048
+    },
+    {
+      "model_name": "Logistic Regression",
+      "metric_file": "outputs\\logistic_regression\\metrics\\logistic_regression_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.9897233201581027,
+      "recall": 0.9329359165424739,
+      "f1": 0.9604909858074415
+    },
+    {
+      "model_name": "Random Forest",
+      "metric_file": "outputs\\random_forest\\metrics\\random_forest_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.9132007233273056,
+      "recall": 0.8416666666666667,
+      "f1": 0.8759757155247182
+    },
+    {
+      "model_name": "Random Forest",
+      "metric_file": "outputs\\random_forest\\metrics\\random_forest_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.931605471562275,
+      "recall": 0.9642324888226528,
+      "f1": 0.947638227755401
+    },
+    {
+      "model_name": "XGBoost",
+      "metric_file": "outputs\\xgboost\\metrics\\xgboost_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.8856209150326797,
+      "recall": 0.9033333333333333,
+      "f1": 0.8943894389438944
+    },
+    {
+      "model_name": "XGBoost",
+      "metric_file": "outputs\\xgboost\\metrics\\xgboost_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.956390977443609,
+      "recall": 0.9478390461997019,
+      "f1": 0.9520958083832336
+    },
+    {
+      "model_name": "Optional LSTM",
+      "metric_file": "outputs\\lstm_optional\\metrics\\lstm_test_metrics.json",
+      "class_name": "bona_fide",
+      "support": 600.0,
+      "precision": 0.8311688311688312,
+      "recall": 0.96,
+      "f1": 0.8909512761020881
+    },
+    {
+      "model_name": "Optional LSTM",
+      "metric_file": "outputs\\lstm_optional\\metrics\\lstm_test_metrics.json",
+      "class_name": "synthetic",
+      "support": 1342.0,
+      "precision": 0.9807846277021617,
+      "recall": 0.912816691505216,
+      "f1": 0.9455808568120416
+    }
+  ]
+}
