@@ -1,0 +1,4 @@
+model,trial_parameter,trial_value,variant,accuracy,precision,recall,f1,C,penalty,solver,class_weight
+Logistic Regression,solver,lbfgs,solver=lbfgs,0.9284243048403708,0.9886363636363636,0.9069247952345495,0.9460194174757282,1.0,l2,lbfgs,balanced
+Logistic Regression,solver,saga,solver=saga,0.927394438722966,0.9886178861788618,0.9054355919583023,0.9452001554605519,1.0,l2,saga,balanced
+Logistic Regression,solver,liblinear,solver=liblinear,0.925849639546859,0.9885900570497147,0.9032017870439315,0.9439688715953307,1.0,l2,liblinear,balanced

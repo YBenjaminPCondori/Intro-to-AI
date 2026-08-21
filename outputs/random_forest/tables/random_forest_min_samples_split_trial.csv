@@ -1,0 +1,4 @@
+model,trial_parameter,trial_value,variant,accuracy,precision,recall,f1,n_estimators,max_depth,min_samples_split,min_samples_leaf,max_features
+Random Forest,min_samples_split,2,min_samples_split=2,0.9227600411946447,0.9325598259608412,0.9575577066269546,0.9448934606906686,200,None,2,1,sqrt
+Random Forest,min_samples_split,5,min_samples_split=5,0.9207003089598352,0.9298626174981923,0.9575577066269546,0.9435069699192957,200,None,5,1,sqrt
+Random Forest,min_samples_split,10,min_samples_split=10,0.9155509783728115,0.9219756621331424,0.9590469099032017,0.9401459854014599,200,None,10,1,sqrt
