@@ -1,49 +1,46 @@
 # MLAAD MFCC model variants
 
-This folder implements binary audio deepfake detection with:
+This project implements binary audio deepfake detection:
 
-- `0 = bona-fide`
+- `0 = bona_fide`
 - `1 = synthetic/deepfake`
 
-The selected core models are:
+The MLP workflow has been refactored into a staged TensorFlow/Keras experiment sequence. The MLP data-preparation notebook owns corrected metadata parsing, dataset audit, the final frozen split, MFCC extraction, the single MLP feature cache, train-only scaling, and training-only class weights.
 
-- SVM, using fixed-length aggregated MFCC vectors
-- MLP, using fixed-length aggregated MFCC vectors
-- CNN, using MFCC coefficient-by-time maps with a channel dimension
+## MLP execution order
 
-## Notebooks
+1. `Model Variants/Neural Networks/MLP/00_MLP_Data_Preparation.ipynb`
+2. `Model Variants/Neural Networks/MLP/01_MLP_Baseline.ipynb`
+3. `Model Variants/Neural Networks/MLP/02_MLP_Activation_Trial.ipynb`
+4. `Model Variants/Neural Networks/MLP/03_MLP_Optimizer_Trial.ipynb`
+5. `Model Variants/Neural Networks/MLP/04_MLP_Dropout_Regularisation_Trial.ipynb`
+6. `Model Variants/Neural Networks/MLP/05_MLP_Architecture_Trial.ipynb`
+7. `Model Variants/Neural Networks/MLP/06_MLP_LearningRate_BatchSize_Trial.ipynb`
+8. `Model Variants/Neural Networks/MLP/07_MLP_Controlled_Trial_Comparison.ipynb`
+9. `Model Variants/Neural Networks/MLP/08_MLP_Random_Search.ipynb`
+10. `Model Variants/Neural Networks/MLP/09_MLP_Genetic_Algorithm.ipynb`
+11. `Model Variants/Neural Networks/MLP/10_MLP_HPO_Comparison.ipynb`
+12. `Model Variants/Neural Networks/MLP/11_MLP_Final_Selected_Model.ipynb`
 
-1. `Download Dataset Script.ipynb` optionally downloads the MLAAD synthetic subset.
-2. `MLAAD Scan & MFCC Analysis Cache.ipynb` is now an optional pre-flight notebook. It scans data, checks class balance and file quality, previews MFCC shapes, and saves simple manifest tables.
-3. `Support Vector Machine Training Script.ipynb` trains and evaluates the SVM baseline.
-4. `Multi Layer Perceptron Training Sciprt.ipynb` trains and evaluates the MLP baseline.
-5. `Convolutional Neural Network Training Script.ipynb` trains and evaluates the CNN model.
-6. `Optional Random Forest Baseline.ipynb` trains an optional tree-based baseline on aggregated MFCC features.
-7. `Optional Logistic Regression Baseline.ipynb` trains an optional simple linear classifier on aggregated MFCC features.
-8. `Optional XGBoost Baseline.ipynb` trains an optional gradient-boosted tree classifier on aggregated MFCC features.
-9. `Optional LSTM Baseline.ipynb` trains an optional sequence-model baseline on MFCC time sequences.
-10. `Optional PCA MFCC Feature Analysis.ipynb` uses PCA for optional feature inspection only.
+## MLP artifact layout
 
-The three model notebooks are self-contained. Each one defines its own dataset loading, preprocessing, MFCC extraction, splitting, evaluation, plotting, and output-saving code in visible notebook cells. They do not rely on a shared MFCC cache or a custom helper module.
+- Cache: `outputs/mlp/cache/`
+- Final split manifests: `outputs/mlp/manifests/`
+- Configs and selected hyperparameters: `outputs/mlp/configs/`
+- Trial tables: `outputs/mlp/tables/`
+- Training histories: `outputs/mlp/histories/`
+- Metrics: `outputs/mlp/metrics/`
+- Figures: `outputs/mlp/figures/`
+- Models: `outputs/mlp/models/`
+- Archived pilot notebooks: `outputs/mlp/pilot_legacy/`
 
-The optional notebooks are also self-contained. They are included for comparison and feature analysis, but they are not part of the selected core model set unless you decide to keep them.
+## Method policy
 
-## Evaluation policy
-
-- Scaling is fitted on training data only.
-- Hyperparameter and architecture selection use validation data only.
-- The held-out test split is loaded only after validation-based selection.
-- Core metrics are accuracy, precision, recall, F1-score, and confusion matrix.
-- MLP and CNN additionally record training loss, validation loss, training accuracy, validation accuracy, best epoch, epochs trained, and early-stopping status.
-
-## Optional techniques
-
-- Random Forest is available as an optional additional baseline.
-- Logistic Regression is available as an optional simple linear classifier. It is used instead of Linear Regression because the task is binary classification.
-- XGBoost is available as an optional boosted-tree baseline.
-- LSTM is available only as an optional comparison notebook. It is not one of the selected core models.
-- PCA is available as optional preprocessing / feature analysis only. It is not a classifier and is not required for SVM, MLP, or CNN.
-
-## Final run notes
-
-For final coursework runs, configure `SYNTHETIC_AUDIO_DIR` and `BONA_FIDE_AUDIO_DIR` in each notebook. `MAX_FILES_PER_CLASS` can be set to a small number for a quick check, but leave it as `None` for final experiments.
+- MLP features are `40` MFCC coefficient means plus `40` standard deviations, giving an `80-D` vector.
+- `StandardScaler` is fitted on training features only.
+- Class weights are calculated from `y_train` only.
+- Controlled trials vary one factor at a time and use validation macro-F1 as the primary selection metric.
+- Random Search and Genetic Algorithm use the same evidence-informed domain and the same `40` unique-evaluation budget.
+- Multi-seed confirmation uses `[42, 123, 2026]`.
+- Only `11_MLP_Final_Selected_Model.ipynb` may compute held-out test performance.
+- Refactor notebooks contain placeholders instead of fabricated results until the real runs are executed.

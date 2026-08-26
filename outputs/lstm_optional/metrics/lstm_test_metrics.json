@@ -1,8 +1,0 @@
-{
-  "model": "Optional LSTM",
-  "selected_variant": "lstm_64_dropout_030",
-  "accuracy": 0.927394438722966,
-  "precision": 0.9807846277021617,
-  "recall": 0.912816691505216,
-  "f1": 0.9455808568120417
-}

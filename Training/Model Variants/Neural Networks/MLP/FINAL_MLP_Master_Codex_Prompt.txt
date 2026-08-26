@@ -1,0 +1,1074 @@
+FINAL MASTER CODEX PROMPT
+=========================
+
+PROJECT
+-------
+Refactor the TensorFlow/Keras MLP workflow in the private GitHub repository:
+
+YBenjaminPCondori/Intro-to-AI
+
+Target folder:
+
+Training/Model Variants/Neural Networks/MLP/
+
+Use the newly provided NumPy MLP notebooks ONLY as a structural reference for staged notebook separation and controlled one-factor-at-a-time screening.
+
+Do NOT port:
+- the NumPy-only neural-network implementation;
+- manual Dense/activation/backpropagation code;
+- restricted NumPy optimizer implementations;
+- manual gradient checking;
+- NumPy-specific coursework constraints.
+
+Preserve the existing TensorFlow/Keras MLP approach, Librosa/MFCC methodology, binary audio-deepfake task, project output conventions, and the methodological corrections described below.
+
+This prompt is the single authoritative specification. Where older MLP prompts or notebook structures conflict with this one, THIS prompt takes precedence.
+
+
+1. CORE EXPERIMENTAL PRINCIPLE
+==============================
+
+The final workflow must distinguish three stages:
+
+A. CONTROLLED HYPERPARAMETER SCREENING
+- investigate one factor at a time;
+- train on the training split;
+- evaluate candidate choices on the validation split;
+- carry the selected configuration forward;
+- treat results as sensitivity/screening evidence, NOT proof of a global optimum.
+
+B. JOINT HYPERPARAMETER OPTIMISATION
+- Random Search and Genetic Algorithm (GA);
+- both use the SAME evidence-informed search domain;
+- both use the SAME training/validation data;
+- both use the SAME objective;
+- both receive exactly the SAME unique model-evaluation budget;
+- their purpose is to capture interactions that sequential screening can miss.
+
+C. FINAL HELD-OUT TEST EVALUATION
+- performed only after all model-selection decisions are complete;
+- only the final selected-model notebook may compute test performance.
+
+
+2. FINAL NOTEBOOK STRUCTURE
+===========================
+
+Replace the current broad Baseline -> Random Search structure with:
+
+00_MLP_Data_Preparation.ipynb
+01_MLP_Baseline.ipynb
+02_MLP_Activation_Trial.ipynb
+03_MLP_Optimizer_Trial.ipynb
+04_MLP_Dropout_Regularisation_Trial.ipynb
+05_MLP_Architecture_Trial.ipynb
+06_MLP_LearningRate_BatchSize_Trial.ipynb
+07_MLP_Controlled_Trial_Comparison.ipynb
+08_MLP_Random_Search.ipynb
+09_MLP_Genetic_Algorithm.ipynb
+10_MLP_HPO_Comparison.ipynb
+11_MLP_Final_Selected_Model.ipynb
+
+Execution order:
+
+00 Data Preparation
+-> 01 Baseline
+-> 02 Activation Trial
+-> 03 Optimizer Trial
+-> 04 Dropout / Regularisation Trial
+-> 05 Architecture Trial
+-> 06 Learning Rate / Batch Size Trial
+-> 07 Controlled Trial Comparison
+-> 08 Random Search
+-> 09 Genetic Algorithm
+-> 10 HPO Comparison + Multi-Seed Confirmation
+-> 11 Final Selected Model + Held-Out Test
+
+Do not leave duplicate old and new notebook sequences in the MLP folder.
+
+Preserve the original notebooks through Git history before replacing/renaming them.
+
+The current broad notebooks may be used as source material, but migrate their useful code into the new sequence.
+
+
+3. LEGACY / PILOT RESULTS POLICY
+================================
+
+Existing Random Search, baseline, or test outputs from the previous workflow are PILOT / LEGACY evidence only.
+
+Do not destroy useful historical evidence, but do not mix old-split results with the new final experiment.
+
+If practical:
+- archive legacy result files under a clearly named legacy/pilot location, OR
+- rely on Git history.
+
+Clear stale notebook cell outputs when code or methodology changes.
+
+Do NOT use legacy test metrics to select any final model.
+
+Do NOT fabricate replacement outputs.
+
+Where an experiment has not been rerun, leave:
+
+[RESULT TO BE INSERTED AFTER FINAL RUN]
+
+
+4. 00_MLP_Data_Preparation.ipynb
+================================
+
+This notebook is the ONLY notebook responsible for:
+- dataset scanning;
+- metadata parsing;
+- dataset audit;
+- creating/reusing the canonical split;
+- MFCC extraction;
+- creating the shared MLP feature cache;
+- fitting/saving the scaler;
+- calculating/saving class weights.
+
+No later notebook may independently repeat those steps.
+
+4.1 Correct MLAAD metadata
+--------------------------
+
+Do not infer synthetic language using only:
+
+language = path.parent.name
+
+For an MLAAD synthetic path approximately:
+
+fake/<language>/<tts_generator>/<audio_file>
+
+explicitly store:
+
+language = <language>
+tts_generator = <tts_generator>
+
+For bona-fide data:
+- derive language only from reliable directory/metadata structure;
+- set tts_generator = "bona_fide".
+
+The manifest should contain at least:
+
+path
+relative_path
+label
+class_name
+language
+tts_generator
+file_size_mb
+
+Binary labels remain:
+
+0 = bona_fide
+1 = synthetic
+
+If reliable source/speaker/original-utterance identifiers can be derived from genuine metadata, store them explicitly.
+
+Do NOT invent a speaker/source/group identifier from filenames unless the derivation is demonstrably reliable.
+
+4.2 Dataset audit before splitting
+----------------------------------
+
+Audit and save/print:
+
+- total recordings;
+- bona-fide count;
+- synthetic count;
+- class ratio;
+- language distribution;
+- class x language distribution;
+- synthetic recordings by TTS generator;
+- duplicate paths;
+- missing paths;
+- audio-duration distribution;
+- native sample-rate distribution by class;
+- any genuinely reliable source/speaker/group distribution.
+
+Do not change SAMPLE_RATE merely because another prompt recommends a value.
+
+Audit native rates first.
+
+Preserve the current target sample rate if methodologically valid and document it in one configuration section.
+
+4.3 Canonical frozen split
+--------------------------
+
+The old test performance has already been observed in pilot work.
+
+Therefore, use a NEW final train/validation/test split unless the repository already contains a clearly documented replacement split that was created after this correction and has not been used for model selection.
+
+Target proportions:
+
+train = 70%
+validation = 15%
+test = 15%
+
+Base seed:
+
+RANDOM_STATE = 42
+
+Prefer group-aware splitting only when a RELIABLE group key genuinely exists.
+
+If a reliable group key exists:
+- keep each group entirely within one split;
+- verify zero group overlap.
+
+If no reliable group key exists:
+- do not invent one;
+- use a reproducible label-stratified split;
+- print a clear methodological warning;
+- preserve this as a report limitation.
+
+Validate:
+- split sizes;
+- class counts;
+- class ratios;
+- language distributions;
+- zero path overlap;
+- zero group overlap when grouping is available.
+
+Save:
+
+train_manifest.csv
+validation_manifest.csv
+test_manifest.csv
+
+Also save split metadata/configuration so later runs can verify that the canonical split already exists and avoid silently regenerating a different split.
+
+The canonical split must be reused by all later notebooks.
+
+4.4 ONE MFCC cache only
+-----------------------
+
+Do NOT add separate MFCC extraction or feature caches to individual experiment notebooks.
+
+MFCC extraction occurs ONCE in 00_MLP_Data_Preparation.ipynb.
+
+Retain:
+
+- 40 MFCC coefficients;
+- mean over time;
+- standard deviation over time;
+- 80-dimensional final feature vector.
+
+Unless the dataset audit identifies a concrete methodological reason to change this, preserve it.
+
+Create one canonical cache, for example:
+
+outputs/mlp/cache/
+    X_train.npy
+    y_train.npy
+    train_metadata.csv
+    X_validation.npy
+    y_validation.npy
+    validation_metadata.csv
+    X_test.npy
+    y_test.npy
+    test_metadata.csv
+
+Equivalent .npz files are acceptable.
+
+Do NOT create separate baseline/activation/optimizer/dropout/architecture/Random-Search/GA MFCC caches.
+
+There must be ONE shared MLP MFCC cache.
+
+4.5 Scaling
+-----------
+
+Fit StandardScaler on training features ONLY.
+
+Save the fitted scaler.
+
+Use that same fitted scaler to transform validation and test features.
+
+Never fit or refit the scaler using validation/test observations during model selection.
+
+4.6 Class weights
+-----------------
+
+Calculate class weights from y_train ONLY using a standard balanced class-weight calculation.
+
+Save them once.
+
+Use the SAME training-derived class weights for:
+- baseline;
+- controlled screening;
+- Random Search;
+- GA;
+- confirmation runs;
+- final model training.
+
+Do not independently rebalance/resample classes in different HPO methods.
+
+4.7 Test-data handling
+----------------------
+
+00_MLP_Data_Preparation.ipynb may create/save the test manifest/features as part of preprocessing and perform structural sanity checks such as split sizes and overlap.
+
+However:
+- no model predictions may be made on the test set;
+- no test performance metrics may be calculated;
+- no test results may influence modelling decisions.
+
+Notebooks 01 through 10 must NOT load X_test/y_test for model evaluation or model selection.
+
+11_MLP_Final_Selected_Model.ipynb is the only model notebook allowed to evaluate the held-out test set.
+
+
+5. SHARED MODEL-TRAINING POLICY
+===============================
+
+Use TensorFlow/Keras visibly.
+
+Keep the code understandable at beginner/intermediate MSc level.
+
+Use:
+
+MAX_EPOCHS = 50
+
+EarlyStopping(
+    monitor="val_loss",
+    patience=7,
+    min_delta=1e-4,
+    restore_best_weights=True
+)
+
+unless an existing project setting has a documented reason to differ.
+
+Keep fixed unless explicitly being studied:
+
+loss = binary_crossentropy
+output activation = sigmoid
+prediction threshold = 0.5
+
+Primary model-selection metric:
+
+validation macro-F1
+
+Compute with:
+
+f1_score(
+    y_validation,
+    predictions,
+    average="macro"
+)
+
+Also record when applicable:
+
+validation macro-F1
+validation binary F1 for synthetic class
+validation accuracy
+validation precision
+validation recall
+best validation loss
+best epoch
+epochs trained
+runtime
+full configuration
+seed
+
+Do NOT use final-test performance during any screening or HPO decision.
+
+
+6. 01_MLP_Baseline.ipynb
+=========================
+
+Create ONE fixed reference model:
+
+hidden_units = [128, 64]
+activation = "relu"
+optimizer = "adam"
+dropout = 0.20
+learning_rate = 0.001
+batch_size = 128
+loss = "binary_crossentropy"
+
+This is a STARTING POINT, not an optimal model.
+
+Train on training data.
+Evaluate on validation data only.
+
+Save:
+
+baseline_config.json
+baseline_validation_metrics.json
+baseline_history.csv
+
+No test evaluation.
+
+The next notebook must LOAD baseline_config.json rather than recreate it manually.
+
+
+7. 02_MLP_Activation_Trial.ipynb
+================================
+
+Load baseline_config.json.
+
+Clone it for each activation candidate.
+
+Change ONLY hidden-layer activation.
+
+Suggested candidates:
+
+relu
+tanh
+elu
+
+Everything else remains fixed.
+
+Rank primarily by validation macro-F1.
+
+Save:
+
+02_activation_results.csv
+02_activation_histories.*
+02_selected_config.json
+
+Do not claim the selected activation is globally optimal.
+
+Describe this as controlled hyperparameter screening / activation sensitivity analysis.
+
+
+8. 03_MLP_Optimizer_Trial.ipynb
+===============================
+
+Load 02_selected_config.json.
+
+Suggested candidates:
+
+Adam
+RMSprop
+SGD with momentum = 0.9
+
+For this controlled screen, keep the provisional learning rate fixed at the inherited/reference value so the notebook changes only optimizer choice.
+
+Explicitly state the limitation:
+
+different optimizers can have different optimal learning rates, so this is a controlled sensitivity screen rather than proof of the globally best optimizer.
+
+Use validation macro-F1 for selection.
+
+Save:
+
+03_optimizer_results.csv
+03_optimizer_histories.*
+03_selected_config.json
+
+CONFLICT RESOLUTION:
+
+The older prompt fixed Adam from the start.
+This prompt does NOT assume Adam is optimal.
+
+The optimizer is screened here.
+
+To keep later joint HPO manageable and avoid optimizer-specific learning-rate complexity at MSc level, the optimizer selected here becomes FIXED downstream.
+
+Do not include multiple optimizers in Random Search/GA unless a later explicit human decision requests optimizer-learning-rate joint tuning.
+
+
+9. 04_MLP_Dropout_Regularisation_Trial.ipynb
+============================================
+
+Load 03_selected_config.json.
+
+By default, keep this notebook focused on dropout.
+
+Suggested candidates:
+
+0.0
+0.1
+0.2
+0.3
+0.4
+
+Change ONLY dropout.
+
+If L2 regularisation already exists in the repository and is part of the intended methodology, it may be evaluated in a separate second sub-stage AFTER selecting dropout.
+
+Do NOT add L2 merely to make the project more complex.
+
+If L2 is not already methodologically required, omit it and state that dropout is the selected regularisation mechanism.
+
+Save:
+
+04_dropout_results.csv
+04_dropout_histories.*
+04_selected_config.json
+
+No test evaluation.
+
+
+10. 05_MLP_Architecture_Trial.ipynb
+===================================
+
+Load 04_selected_config.json.
+
+Vary ONLY hidden-layer architecture.
+
+Suggested candidates:
+
+[64]
+[128]
+[64, 32]
+[128, 64]
+[256, 128]
+[256, 128, 64]
+
+Keep inherited:
+- activation;
+- optimizer;
+- dropout;
+- provisional learning rate;
+- provisional batch size.
+
+Use validation macro-F1 as primary selection metric.
+
+Save:
+
+05_architecture_results.csv
+05_architecture_histories.*
+05_selected_config.json
+
+Do not change dropout at the same time as architecture.
+
+
+11. 06_MLP_LearningRate_BatchSize_Trial.ipynb
+==============================================
+
+Load 05_selected_config.json.
+
+Perform TWO controlled sub-stages.
+
+11.1 Learning-rate screening
+----------------------------
+
+Hold batch size fixed.
+
+Suggested candidates:
+
+1e-4
+3e-4
+1e-3
+3e-3
+1e-2
+
+Change only learning rate.
+
+Select primarily using validation macro-F1.
+
+11.2 Batch-size screening
+-------------------------
+
+Using the selected learning rate, compare:
+
+32
+64
+128
+256
+
+Hold all other settings fixed.
+
+Save:
+
+06_learning_rate_results.csv
+06_batch_size_results.csv
+06_learning_rate_histories.*
+06_batch_size_histories.*
+06_selected_config.json
+
+No test evaluation.
+
+
+12. CONTROLLED-SCREENING INTERPRETATION
+=======================================
+
+Notebooks 02-06 are NOT Random Search.
+
+They are one-factor-at-a-time sensitivity/screening experiments.
+
+Their purpose is to show:
+- what factor changed;
+- what remained fixed;
+- how validation performance responded;
+- which provisional configuration was carried forward.
+
+Do NOT describe the sequential winner as globally optimal.
+
+Explicitly state that sequential screening:
+- is interpretable;
+- is order-dependent;
+- may miss hyperparameter interactions.
+
+That limitation is why Random Search and GA remain necessary.
+
+
+13. 07_MLP_Controlled_Trial_Comparison.ipynb
+============================================
+
+Load all controlled-trial results.
+
+Reconstruct:
+
+Stage
+Candidate values
+Inherited/fixed settings
+Validation macro-F1
+Selected value
+Validation loss
+Runtime
+
+Include:
+Baseline
+Activation
+Optimizer
+Dropout
+Architecture
+Learning rate
+Batch size
+
+Save:
+
+controlled_selected_config.json
+controlled_trial_summary.csv
+
+13.1 Evidence-informed HPO search space
+---------------------------------------
+
+Create:
+
+screened_hpo_search_space.json
+
+Do NOT blindly copy the old fixed 1,200-configuration search space.
+
+The old ranges are useful as INITIAL / PILOT candidate ranges only.
+
+Use a conservative screening policy:
+
+- optimizer: FIX to the optimizer selected in notebook 03;
+- activation: retain at least the best 2 values, if at least 2 were tested;
+- architecture: retain at least the best 3 values, if at least 3 were tested;
+- dropout: retain at least the best 3 values, if at least 3 were tested;
+- learning_rate: retain at least the best 3 values, if at least 3 were tested;
+- batch_size: retain at least the best 3 values, if at least 3 were tested.
+
+If candidates are effectively tied or near-tied in validation macro-F1, retain MORE candidates rather than aggressively pruning the domain.
+
+Do not reduce a joint-HPO factor to one value solely because it won one controlled screen.
+
+Print the resulting domain and total discrete configuration count.
+
+If the resulting domain contains fewer than 40 unique configurations:
+- retain additional next-best screened candidates until the domain contains at least 40;
+- document that expansion.
+
+Do not claim the screened domain contains the global optimum.
+
+
+14. 08_MLP_Random_Search.ipynb
+==============================
+
+Load:
+
+screened_hpo_search_space.json
+
+Perform:
+
+40 UNIQUE model configurations
+
+Sample without replacement.
+
+Use frozen training/validation data and shared:
+- scaler;
+- class weights;
+- MFCC cache;
+- early-stopping policy;
+- threshold;
+- metric definitions.
+
+Use validation macro-F1 as the primary HPO objective.
+
+Derive a deterministic configuration-specific seed using a stable method such as SHA-256.
+
+Do NOT use Python's unstable built-in hash().
+
+If Random Search and GA evaluate the same configuration during HPO, it should receive the same configuration-specific initialization seed.
+
+Record:
+
+method
+unique_evaluation_number
+configuration
+seed
+validation_macro_f1
+validation_binary_f1
+validation_accuracy
+validation_precision
+validation_recall
+best_validation_loss
+best_epoch
+epochs_trained
+runtime
+
+Save every trial and the best configuration.
+
+No test evaluation.
+
+
+15. 09_MLP_Genetic_Algorithm.ipynb
+==================================
+
+Load the EXACT SAME:
+
+screened_hpo_search_space.json
+
+used by Random Search.
+
+Use the same:
+- training data;
+- validation data;
+- scaler;
+- class weights;
+- candidate-training policy;
+- configuration-specific seed rule;
+- validation macro-F1 objective.
+
+Recommended GA settings:
+
+population_size = 10
+tournament_size = 3
+elite_count = 2
+mutation_rate = 0.20
+crossover = uniform
+
+Critical fairness rule:
+
+MAX_UNIQUE_EVALUATIONS = 40
+
+Maintain an evaluation cache.
+
+If GA produces a previously evaluated configuration:
+- reuse cached fitness/result;
+- do not train it again;
+- do not count it as a new unique model evaluation.
+
+Continue until exactly 40 unique configurations have been trained/evaluated.
+
+Record:
+
+generation
+individual
+unique_evaluation_number
+configuration
+seed
+validation_macro_f1
+secondary metrics
+best_validation_loss
+runtime
+
+No test evaluation.
+
+
+16. 10_MLP_HPO_Comparison.ipynb
+===============================
+
+Compare:
+
+1. final controlled-screening configuration;
+2. Random Search winner;
+3. GA winner.
+
+For Random Search and GA, compare under the equal 40-unique-evaluation budget.
+
+Produce:
+
+method
+best_validation_macro_f1
+best_validation_loss
+best_configuration
+unique_evaluations
+evaluation_number_where_best_was_found
+total_search_runtime
+
+Create a convergence plot:
+
+x-axis = unique model evaluations
+y-axis = best validation macro-F1 achieved so far
+
+Plot Random Search and GA on the same figure.
+
+Do not access the test set.
+
+16.1 Multi-seed confirmation
+----------------------------
+
+Use:
+
+CONFIRMATION_SEEDS = [42, 123, 2026]
+
+At minimum confirm:
+- controlled_selected_config;
+- best Random Search configuration;
+- best GA configuration.
+
+For each calculate:
+
+mean validation macro-F1
+std validation macro-F1
+mean validation loss
+std validation loss
+
+Select primarily by highest mean validation macro-F1.
+
+Use lower variability and validation loss as secondary evidence.
+
+Do not select based on one lucky seed.
+
+Save:
+
+selected_hyperparameters.json
+
+including:
+
+configuration
+source_method
+confirmation_seeds
+mean_validation_macro_f1
+std_validation_macro_f1
+mean_validation_loss
+std_validation_loss
+
+No test evaluation.
+
+
+17. 11_MLP_Final_Selected_Model.ipynb
+=====================================
+
+Load:
+
+selected_hyperparameters.json
+
+Do NOT manually rewrite the winning hyperparameters.
+
+Train the final selected MLP using the same training/validation methodology and shared preprocessing artifacts.
+
+After model/training procedure is fixed, evaluate the frozen held-out test set ONCE.
+
+Report at minimum:
+
+test macro-F1
+test binary F1 for synthetic
+test bona-fide/per-class F1 where appropriate
+test accuracy
+test precision
+test recall
+confusion matrix
+
+If corrected metadata genuinely supports it, also report descriptive subgroup performance by:
+
+language
+TTS generator
+
+Do not call tts_generator a language.
+
+Do not alter hyperparameters after seeing test performance.
+
+The final test result is evaluation, not optimisation.
+
+
+18. OUTPUT / ARTIFACT ORGANISATION
+==================================
+
+Preserve existing output conventions where possible.
+
+Use a clear hierarchy, for example:
+
+outputs/mlp/
+    cache/
+    manifests/
+    configs/
+    tables/
+    histories/
+    metrics/
+    figures/
+    models/
+    pilot_legacy/
+
+Each controlled trial must save:
+- all candidate configurations;
+- validation metrics;
+- training histories;
+- runtime;
+- selected candidate;
+- selected config JSON for the next notebook.
+
+Each later notebook must LOAD predecessor artifacts rather than manually retyping selected hyperparameters.
+
+
+19. REPORTING / MARKDOWN REQUIREMENTS
+=====================================
+
+Add concise markdown explaining:
+
+- why 40 MFCC means + 40 MFCC standard deviations = 80 dimensions;
+- why the split is frozen;
+- why StandardScaler is fitted on training only;
+- why class weights use y_train only;
+- why validation macro-F1 drives selection;
+- why the final test set is isolated;
+- what controlled hyperparameter screening means;
+- why screening does not prove global optimality;
+- why sequential screening can miss interactions;
+- why Random Search is still required;
+- why GA is compared with the same budget;
+- why Random Search and GA use the same domain;
+- why three-seed confirmation is performed.
+
+Preferred terms:
+
+"controlled hyperparameter screening"
+"hyperparameter sensitivity analysis"
+"validation-based model selection"
+"joint hyperparameter optimisation"
+
+Avoid saying "test activation" when "evaluate activation candidates on validation" is clearer.
+
+Avoid claiming "optimal" unless supported.
+
+Do not fabricate conclusions.
+
+
+20. NO CUSTOM HELPER MODULE
+===========================
+
+Do not hide important methodology behind:
+
+mlaad_colab_common.py
+
+or another project-specific Python helper module.
+
+Keep important logic inspectable in notebook cells.
+
+Shared DATA ARTIFACTS are allowed and required:
+- manifests;
+- cache arrays;
+- scaler;
+- class weights;
+- JSON configs;
+- CSV results.
+
+Some repetition of small model/evaluation functions across notebooks is acceptable for transparency.
+
+
+21. STATIC / LIGHTWEIGHT VALIDATION ONLY
+========================================
+
+Do NOT automatically run:
+- all full controlled experiments;
+- 40-trial Random Search;
+- 40-unique-evaluation GA;
+- multi-seed confirmation;
+- final expensive test training.
+
+Make the notebooks ready for those runs.
+
+Perform lightweight/static checks where practical:
+- notebook JSON validity;
+- Python syntax;
+- import checks;
+- saved-path consistency;
+- configuration dependency checks;
+- correct predecessor/successor references.
+
+Do not fabricate execution results.
+
+
+22. FINAL CROSS-NOTEBOOK AUDIT
+==============================
+
+Verify:
+
+1. Exactly the intended 12-notebook staged sequence exists.
+2. Old broad notebook duplicates do not remain active.
+3. MLAAD language and TTS-generator metadata are distinct.
+4. One canonical train/validation/test split is used.
+5. No later notebook regenerates its own split.
+6. Exactly ONE shared MLP MFCC cache exists.
+7. Trial/HPO notebooks do not repeat MFCC extraction.
+8. StandardScaler is fitted on training only.
+9. Class weights come from y_train only and are reused.
+10. Baseline evaluates validation only.
+11. Each controlled trial loads the previous selected config.
+12. Each controlled trial varies only its intended factor/sub-stage.
+13. Screening is described as sensitivity/screening, not global optimisation.
+14. Notebook 07 constructs an evidence-informed but conservative HPO domain.
+15. Optimizer is screened, then fixed for joint HPO unless explicitly changed later.
+16. Random Search and GA load the exact same screened_hpo_search_space.json.
+17. Random Search and GA use validation macro-F1.
+18. Each receives exactly 40 unique model evaluations.
+19. Duplicate GA configurations do not consume unique budget.
+20. Both use the same configuration-specific HPO seed rule.
+21. No notebook 01-10 calculates test performance.
+22. Confirmation uses [42, 123, 2026].
+23. selected_hyperparameters.json is produced by notebook 10.
+24. Notebook 11 loads selected_hyperparameters.json.
+25. Only notebook 11 computes final held-out test performance.
+26. No stale old-split test output remains in the new notebooks.
+27. No fabricated result is introduced.
+28. All saved-path dependencies are consistent.
+29. README/documentation shows the new execution order.
+30. The workflow remains beginner/intermediate MSc level.
+
+
+23. EXPLICIT CONFLICT RESOLUTIONS
+=================================
+
+A. OLD: 5 notebooks.
+FINAL: 12 staged notebooks.
+
+B. OLD: Baseline -> Random Search -> GA immediately.
+FINAL: controlled screening occurs before joint HPO.
+
+C. OLD: optimizer fixed as Adam from the start.
+FINAL: optimizer is screened in notebook 03; the screened winner is then fixed downstream for manageable MSc-level HPO.
+
+D. OLD: fixed 1,200-configuration HPO domain.
+FINAL: those old ranges are initial/pilot candidate ranges only. Notebook 07 constructs a conservative evidence-informed domain from controlled validation results.
+
+E. OLD: broad notebooks repeated data/MFCC work.
+FINAL: notebook 00 alone owns dataset preparation and ONE MFCC cache; all later notebooks load shared artifacts.
+
+F. BOTH AGREE AND MUST BE PRESERVED:
+- validation macro-F1 drives model selection;
+- class weights come from training only;
+- scaling is fitted on training only;
+- Random Search and GA receive equal unique-evaluation budgets;
+- configuration-specific deterministic HPO seeds are used;
+- three-seed confirmation is performed;
+- held-out test is evaluated only at the final stage;
+- no results are fabricated.
+
+
+24. FINAL CHANGE SUMMARY
+========================
+
+When the refactor is complete, return a concise summary containing:
+
+- files created;
+- files renamed/replaced;
+- files removed from active workflow;
+- metadata fixes;
+- split/data-preparation changes;
+- cache changes;
+- controlled-screening stages added;
+- HPO search-space construction changes;
+- Random Search budget;
+- GA budget;
+- multi-seed confirmation policy;
+- final test-isolation policy;
+- generated artifacts expected after real runs;
+- anything still requiring a human methodological decision;
+- exact notebook execution order.
+
+Do not run the full expensive experiment automatically.
+
+Implement the notebooks and validate the workflow statically/lightly so they are ready for controlled execution.
