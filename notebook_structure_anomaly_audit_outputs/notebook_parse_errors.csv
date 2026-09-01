@@ -1,0 +1,5 @@
+notebook_path,relative_notebook_path,version,error
+D:\Benjamin Data\Introduction to AI\Intro-to-AI\Training\Model Variants\Neural Networks\MLP\MLP_Optimizer_Trial.ipynb,Training/Model Variants/Neural Networks/MLP/MLP_Optimizer_Trial.ipynb,working_tree,JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+D:\Benjamin Data\Introduction to AI\Intro-to-AI\Training\Model Variants\Neural Networks\MLP\MLP_Optimizer_Trial.ipynb,Training/Model Variants/Neural Networks/MLP/MLP_Optimizer_Trial.ipynb,HEAD,JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+D:\Benjamin Data\Introduction to AI\Intro-to-AI\Training\Model Variants\Neural Networks\MLP\MLP_Random_Search.ipynb,Training/Model Variants/Neural Networks/MLP/MLP_Random_Search.ipynb,working_tree,JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+D:\Benjamin Data\Introduction to AI\Intro-to-AI\Training\Model Variants\Neural Networks\MLP\MLP_Random_Search.ipynb,Training/Model Variants/Neural Networks/MLP/MLP_Random_Search.ipynb,HEAD,JSONDecodeError('Expecting value: line 1 column 1 (char 0)')

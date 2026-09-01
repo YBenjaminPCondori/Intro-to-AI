@@ -1,0 +1,50 @@
+{
+  "run_timestamp_local": "2026-09-01T06:07:23",
+  "repo_root": "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI",
+  "audit_scope": "All .ipynb files under the repo, excluding audit output folders and .ipynb_checkpoints.",
+  "notebooks_checked": 59,
+  "tracked_notebooks_checked": 59,
+  "modified_notebooks_before_audit": [
+    "Training/Model Variants/Analysis/Feature_Analysis_PCA_MFCC.ipynb",
+    "Training/Model Variants/Decision Trees/Random_Forest/Random_Forest_Baseline.ipynb",
+    "Training/Model Variants/Decision Trees/Random_Forest/Random_Forest_Final_Selected_Model.ipynb",
+    "Training/Model Variants/Regression/Logistic_Regression/Log_Regression_Baseline.ipynb",
+    "Training/Model Variants/Regression/Logistic_Regression/Log_Regression_Final_Selected_Model.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Baseline.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_C_Trial.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Class_Weight_Trial.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Data_Preparation.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Final_Selected_Model.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Gamma_Trial.ipynb",
+    "Training/Model Variants/Support Vector Machine/SupportVectorMachine_Kernel_Trial.ipynb"
+  ],
+  "modified_notebook_count_before_audit": 12,
+  "findings_total": 59,
+  "affected_notebook_count": 34,
+  "severity_counts": {
+    "medium": 59
+  },
+  "finding_type_counts": {
+    "early_dense_function_block": 48,
+    "large_notebook_diff_without_clear_function_move": 9,
+    "notebook_parse_error": 2
+  },
+  "parse_error_count": 4,
+  "changed_notebooks_by_audit": [],
+  "notebook_outputs_executed_or_modified": false,
+  "outputs_created": [
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_structure_anomaly_audit_summary.md",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_structure_anomaly_findings.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\function_position_inventory.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_git_cell_order_diff.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_git_diff_summary.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_parse_errors.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\notebook_audit_file_inventory.csv",
+    "D:\\Benjamin Data\\Introduction to AI\\Intro-to-AI\\notebook_structure_anomaly_audit_outputs\\audit_run_metadata.json"
+  ],
+  "limitations": [
+    "The audit detects structural anomalies and Git-diff evidence, but cannot prove who made a change or why.",
+    "Notebook JSON diffs can be noisy when outputs, metadata, or line endings change.",
+    "Early helper functions are not automatically wrong; flagged items require manual confirmation before editing."
+  ]
+}
